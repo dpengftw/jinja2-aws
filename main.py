@@ -11,6 +11,10 @@ def secretsmanager(input):
     if 'version-id' in input_dict: params['VersionId'] = input_dict['version-id']
     if 'version-stage' in input_dict: params['VersionStage'] = input_dict['version-stage']
     response = client.get_secret_value(**params)
+
+    if 'json-key' in input_dict:
+        return response['SecretString'][input_dict['json-key']]
+    
     return response['SecretString']
 
 def parse_reference(string):
